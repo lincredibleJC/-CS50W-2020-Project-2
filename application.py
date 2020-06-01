@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, session, render_template, request, redirect, url_for, flash
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room, leave_room
 
 from helpers import login_required 
 
@@ -106,7 +106,7 @@ def send_message(message, timestamp):
 	emit("announce message", {"username": username,
 							 "message": message,
 							 "timestamp": timestamp},
-							 broadcast=True)
+							 room=channel_name)
 
 @socketio.on("join channel")
 def join_channel():
