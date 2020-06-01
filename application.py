@@ -3,6 +3,8 @@ import os
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_socketio import SocketIO, emit
 
+from helpers import login_required 
+
 app = Flask(__name__)
 
 # app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -17,6 +19,7 @@ users = []
 logged_in = []
 
 @app.route("/")
+@login_required
 def index():
 	return render_template("index.html")
 
@@ -50,6 +53,7 @@ def login():
 		return render_template("login.html")
 
 @app.route("/logout")
+@login_required
 def logout():
 	logged_in.remove(session.get("username"))
 	session.clear()
