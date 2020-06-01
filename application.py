@@ -107,3 +107,8 @@ def send_message(message, timestamp):
 							 "message": message,
 							 "timestamp": timestamp},
 							 broadcast=True)
+
+@socketio.on("join channel")
+def join_channel():
+	username = session.get("username")
+	emit("announce join", {"username": username}, broadcast=True)

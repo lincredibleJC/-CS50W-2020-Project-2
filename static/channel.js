@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // When connected, configure buttons
   socket.on('connect', () => {
-    console.log("connected")
+    
+    socket.emit("join channel");
 
     document.querySelector('#send-button').addEventListener("click", () => {
       let message = document.getElementById("message").value;
@@ -20,6 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
   socket.on('announce message', data => {
       const li = document.createElement('li');
       li.innerHTML = `${data.username},  ${data.message}, ${data.timestamp}`;
+      document.querySelector('#message_list').append(li);
+  });
+
+  // When a new message is announced, add to message list
+  socket.on('announce join', data => {
+      const li = document.createElement('li');
+      li.innerHTML = `${data.username} has joined.`;
       document.querySelector('#message_list').append(li);
   });
 
