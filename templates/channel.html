@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Channel
+{% endblock %}
+
+{% block content %}
+	<!-- Left control Bar -->
+	<div>
+    <ul class="channel_list">
+      {% for channel in session.get('channels') %}
+        <li><a><span class="unread">0</span><span><span class="prefix">#</span>{{ channel.name }}</span></a></li>
+      {% endfor %}
+      
+    </ul>
+	</div>
+{% endblock %}
