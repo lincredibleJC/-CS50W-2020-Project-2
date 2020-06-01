@@ -29,18 +29,19 @@ def index():
 
 @app.route("/login", methods=['GET','POST'])
 def login():
+	session.clear()
 
 	if request.method == "POST":
 		username = request.form.get("username")
 
 		if not username.replace(" ", "").isalpha():
 			flash("Your username is not valid")
-			return redirect("login.html")
+			return render_template("login.html")
 
 		if username in users:
 			if username in logged_in:
 				flash("This name is currently being used")
-				return redirect("login.html")	
+				return render_template("login.html")	
 			else:
 				flash("You have successfully logged in")
 				logged_in.append(username)
