@@ -17,11 +17,13 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 users = []
 logged_in = []
+channels = dict()
+
 
 @app.route("/")
 @login_required
 def index():
-	return render_template("index.html")
+	return render_template("index.html", channels=channels)
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -55,6 +57,37 @@ def login():
 @app.route("/logout")
 @login_required
 def logout():
-	logged_in.remove(session.get("username"))
+	if session.get("username") in logged_in:
+		logged_in.remove(session.get("username"))
 	session.clear()
 	return redirect("/")
+
+@app.route("/create_channel", methods=['POST'])
+@login_required
+def create_channel():
+	channel_name = request.form.get("channel_name")
+
+	if not channel_name.replace(" ", "").isalpha():
+		flash("This channel name is not valid")
+		return redirect("/")
+
+	if channel_name in channels:
+		flash("A channel with the same name already exists.")
+		return redirect("/channel/"+channel_name)
+	
+	channels[channel_name] = {"name": channel_name, "messages": ["testing1","testing2","testing3"]}
+	flash("Channel created")
+	return redirect("/")
+
+@app.route("/channel/<string:channel_name>")
+@login_required
+def channel(channel_name):
+	if channel_name not in channels:
+		flash("Channel does not exist")
+		return redirect(index)
+
+	channel_data = channels[channel_name]
+	print(channel_data)
+	return render_template("channel.html", channel_data=channel_data)
+
+

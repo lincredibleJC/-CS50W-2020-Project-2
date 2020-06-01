@@ -10,14 +10,14 @@
   <ul>
     {% if channels %}
       {% for channel in channels %}
-        <li><a href="">{{ channel }}</a></li>
+        <li><a href="/channel/{{ channel }}">{{ channel }}</a></li>
       {% endfor %}
     {% else %}
       <li>There are currently no Channels</li>
     {% endif %}
   </ul>
 
-  <form>
+  <form action="/create_channel" method="POST">
     <label>Create Channel</label>
     <input type="text" name="channel_name" placeholder="Enter new channel name">
     <input type="submit" name="submit" value="Create Channel">

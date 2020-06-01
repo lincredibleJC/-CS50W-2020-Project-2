@@ -1,17 +1,16 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-  Channel
+  {{ channel_data.name }}
 {% endblock %}
 
 {% block content %}
-	<!-- Left control Bar -->
 	<div>
-    <ul class="channel_list">
-      {% for channel in session.get('channels') %}
-        <li><a><span class="unread">0</span><span><span class="prefix">#</span>{{ channel.name }}</span></a></li>
+		<h3>You are now in channel "{{ channel_data.name }}"</h3>
+    <ul class="message_list">
+      {% for message in channel_data.messages %}
+        <p>{{ message }}</p>
       {% endfor %}
-      
     </ul>
 	</div>
 {% endblock %}
