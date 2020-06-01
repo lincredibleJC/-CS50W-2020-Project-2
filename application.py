@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, request, redirect, url_for
+from flask import Flask, session, render_template, request, redirect, url_for, flash
 from flask_socketio import SocketIO, emit
 
 from helpers import login_required 
@@ -30,24 +30,24 @@ def login():
 		username = request.form.get("username")
 
 		if not username.replace(" ", "").isalpha():
-			print("name is not valid")
-			#flash error message
+			flash("Your username is not valid")
 			return redirect("login.html")
 
 		if username in users:
 			if username in logged_in:
-				print("this name is being used")
-				# flash error message
+				flash("This name is currently being used")
 				return redirect("login.html")	
 			else:
+				flash("You have successfully logged in")
 				logged_in.append(username)
 				session['username'] = username
 				return redirect("/")
 		else:
-			# create this user
 			users.append(username)
+			flash("User created")
 			logged_in.append(username)
 			session['username'] = username
+			flash("You have successfully logged in")
 			return redirect("/")
 	else:
 		return render_template("login.html")

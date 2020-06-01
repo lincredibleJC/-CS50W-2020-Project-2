@@ -6,6 +6,17 @@
   </head>
   <body>
     <div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
+    <div>
       {% if session.get('username') %}
         <h1>You are logged in as {{ session.get('username') }}</h1>
         <a href="/logout">Logout</a>
