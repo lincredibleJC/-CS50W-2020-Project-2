@@ -108,7 +108,18 @@ def send_message(message, timestamp):
 							 "timestamp": timestamp},
 							 room=channel_name)
 
-@socketio.on("join channel")
-def join_channel():
-	username = session.get("username")
-	emit("announce join", {"username": username}, broadcast=True)
+@socketio.on('join')
+def on_join():
+    room = session.get("channel_name")
+    join_room(room)
+
+    username = session.get("username")
+    emit("announce join", {"username": username}, room=room)
+
+@socketio.on('leave')
+def on_leave():
+    room = session.get("channel_name")
+    leave_room(room)
+    print(room)
+    username = session.get("username")
+    emit("announce leave", {"username": username}, room=room)
