@@ -75,7 +75,7 @@ def create_channel():
 		flash("A channel with the same name already exists.")
 		return redirect("/channel/"+channel_name)
 	
-	channels[channel_name] = {"name": channel_name, "messages": ["testing1","testing2","testing3"]}
+	channels[channel_name] = {"name": channel_name, "messages": []}
 	flash("Channel created")
 	return redirect("/")
 
