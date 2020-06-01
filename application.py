@@ -23,6 +23,8 @@ channels = dict()
 @app.route("/")
 @login_required
 def index():
+
+	session.pop("channel_name", None)
 	return render_template("index.html", channels=channels)
 
 @app.route("/login", methods=['GET','POST'])
@@ -73,6 +75,7 @@ def create_channel():
 
 	if channel_name in channels:
 		flash("A channel with the same name already exists.")
+		session["channel_name"] = channel_name
 		return redirect("/channel/"+channel_name)
 	
 	channels[channel_name] = {"name": channel_name, "messages": []}
@@ -85,9 +88,22 @@ def channel(channel_name):
 	if channel_name not in channels:
 		flash("Channel does not exist")
 		return redirect(index)
-
+	
+	session["channel_name"] = channel_name
+	
 	channel_data = channels[channel_name]
-	print(channel_data)
+
 	return render_template("channel.html", channel_data=channel_data)
 
+@socketio.on("send message")
+def send_message(message, timestamp):
+	username = session.get("username")
+	channel_name = session.get('channel_name')
 
+	channels[channel_name]["messages"].append({"username": username, "message": message, "timestamp": timestamp})
+	print(channels[channel_name])
+
+	emit("announce message", {"username": username,
+							 "message": message,
+							 "timestamp": timestamp},
+							 broadcast=True)
