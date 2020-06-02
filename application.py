@@ -94,6 +94,10 @@ def channel(channel_name):
 	
 	channel_data = channels[channel_name]
 
+	# if more than 100 items, gets last 100 items 
+	if len(channel_data["messages"]) > 100:
+		channel_data["messages"] = channel_data["messages"][-100:]
+
 	return render_template("channel.html", channels=list(channels.keys()), channel_data=channel_data)
 
 @socketio.on("send message")
