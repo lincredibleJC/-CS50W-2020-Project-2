@@ -53,5 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
           document.querySelector('#send-button').disabled = true;
   };
 
+  // 'Enter' key  sends a message
+  document.querySelector('#message').onkeydown = (event) => {
+    if (event.key == "Enter") {
+      document.getElementById("send-button").click();
+    }
+  };
+
 });
 
