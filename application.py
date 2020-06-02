@@ -102,7 +102,6 @@ def send_message(message, timestamp):
 	channel_name = session.get('channel_name')
 
 	channels[channel_name]["messages"].append({"username": username, "message": message, "timestamp": timestamp})
-	print(channels[channel_name])
 
 	emit("announce message", {"username": username,
 							 "message": message,
@@ -121,6 +120,5 @@ def on_join():
 def on_leave():
     room = session.get("channel_name")
     leave_room(room)
-    print(room)
     username = session.get("username")
     emit("announce leave", {"username": username}, room=room)
