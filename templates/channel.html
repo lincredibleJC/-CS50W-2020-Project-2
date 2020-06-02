@@ -9,20 +9,48 @@
   {{ channel_data.name }}
 {% endblock %}
 
+{% block sidebar %}
+	<!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">Available Channels</div>
+    <div class="list-group list-group-flush">
+      {% if channels %}
+        {% for channel in channels %}
+          <a href="/channel/{{ channel }}" class="list-group-item list-group-item-action bg-light">{{ channel }}</a>
+        {% endfor %}
+      {% else %}
+        <a href="#" class="list-group-item list-group-item-action bg-light">There are currently no channels available</a>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block navbar %}
+	<button class="btn btn-success m-2" id="menu-toggle">View all channels</button>
+	{% if session.get("channel_name") %}
+	  <button class="btn btn-danger m-2" id="leave-button" onclick="window.location.href='/';" >Leave channel</button>
+	{% else %}
+	  <form class="form-inline" action="/create_channel" method="POST">
+	    <input class="form-control mr-sm-2" type="text" name="channel_name" placeholder="Enter new channel name">
+	    <button class="btn btn-success" name="submit" type="submit">Create Channel</button>
+	  </form>
+	{% endif %}
+{% endblock %}
+
 {% block content %}
-	<div>
+	<div class=".overflow-auto">
 		<h3>You are now in channel "{{ channel_data.name }}"</h3>
-		<a href="/" id="leave-button">Leave Channel</a>
-    <ul id="message_list" class="message_list">
+    <ul id="message_list" class="message_list mb-4">
       {% for message in channel_data.messages %}
         <li>{{ message.username }}, {{ message.message }}, {{ message.timestamp }}</li>
       {% endfor %}
     </ul>
 	</div>
-	<div>
-		<form id="form">
-	    <input type="text" name="message" id="message" placeholder="Type message here">
-	    <button id="send-button" type="reset">Send</button>
-		</form>
-	</div>
+
+	<form class="input-group mb-3" id="form">
+    <input type="text" class="form-control" id="message">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="reset" id="send-button">Send</button>
+    </div>
+  </form>
 {% endblock %}

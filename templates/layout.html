@@ -1,32 +1,82 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="../static/styles.css" rel="stylesheet">
     {% block head %}{% endblock %}
     <title>Project 2 - {% block title %}{% endblock %}</title>
   </head>
   <body>
-    <div>
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <ul class=flashes>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-      {% endwith %}
+    <div class="d-flex" id="wrapper">
+      
+      {% block sidebar %}{% endblock %}
+      <!-- Sidebar -->
+<!--       <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Flack Project 2</div>
+        <div class="list-group list-group-flush">
+          <a href="#" class="list-group-item list-group-item-action bg-light">Channel List</a>
+          <a href="/login" class="list-group-item list-group-item-action bg-light">Channels</a>
+        </div>
+      </div> -->
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+          {% block navbar %}{% endblock %}
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              {% if session.get('username') %}
+                <li class="nav-item">
+                  <a class="nav-link bold">{{ session.get('username').capitalize() }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Main content -->
+        <div class="container mt-4 text-center">
+          {% block content %}{% endblock %}
+          <div>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+
+      </div>
+      <!-- /#page-content-wrapper -->
+
     </div>
-    <div>
-      {% if session.get('username') %}
-        <h1>You are logged in as {{ session.get('username') }}</h1>
-        <a href="/logout">Logout</a>
-      {% else %}
-        <h1>You're at the homepage now</h1>
-        <a href="/login ">Login</a>
-      {% endif %}
-    </div>
-    <div class="main">
-      {% block content %}{% endblock %}
-    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+    </script>
+
   </body>
 </html>

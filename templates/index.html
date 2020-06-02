@@ -4,22 +4,39 @@
   Homepage
 {% endblock %}
 
-{% block content %}
-  <h2>Channel List</h2>
-  <h4>Click on channels to go there</h4>
-  <ul>
-    {% if channels %}
-      {% for channel in channels %}
-        <li><a href="/channel/{{ channel }}">{{ channel }}</a></li>
-      {% endfor %}
-    {% else %}
-      <li>There are currently no Channels</li>
-    {% endif %}
-  </ul>
+{% block sidebar %}
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">Available Channels</div>
+    <div class="list-group list-group-flush">
+      {% if channels %}
+        {% for channel in channels %}
+          <a href="/channel/{{ channel }}" class="list-group-item list-group-item-action bg-light">{{ channel }}</a>
+        {% endfor %}
+      {% else %}
+        <a href="#" class="list-group-item list-group-item-action bg-light">There are currently no channels available</a>
+      {% endif %}
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+{% endblock %}
 
-  <form action="/create_channel" method="POST">
-    <label>Create Channel</label>
-    <input type="text" name="channel_name" placeholder="Enter new channel name">
-    <input type="submit" name="submit" value="Create Channel">
-  </form>
+{% block navbar %}
+  <button class="btn btn-success m-2" id="menu-toggle">View all channels</button>
+  {% if session.get("channel_name") %}
+    <button class="btn btn-danger m-2">Leave channel</button>
+  {% else %}
+    <form class="form-inline" action="/create_channel" method="POST">
+      <input class="form-control mr-sm-2" type="text" name="channel_name" placeholder="Enter new channel name">
+      <button class="btn btn-success" name="submit" type="submit">Create Channel</button>
+    </form>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <h3>Choose a channel using the sidebar on the left.</h3>
+  <br>
+  <h3>or</h3>
+  <br>
+  <h3>Create a channel in the navbar above</h3>
 {% endblock %}

@@ -25,7 +25,7 @@ channels = dict()
 def index():
 
 	session.pop("channel_name", None)
-	return render_template("index.html", channels=channels)
+	return render_template("index.html", channels=list(channels.keys()))
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -94,7 +94,7 @@ def channel(channel_name):
 	
 	channel_data = channels[channel_name]
 
-	return render_template("channel.html", channel_data=channel_data)
+	return render_template("channel.html", channels=list(channels.keys()), channel_data=channel_data)
 
 @socketio.on("send message")
 def send_message(message, timestamp):
