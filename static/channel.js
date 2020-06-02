@@ -42,5 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('#message_list').append(li);
   });
 
+  // By default, submit button is disabled
+  document.querySelector('#send-button').disabled = true;
+
+  // Enable button only if there is text in the input field
+  document.querySelector('#message').onkeyup = () => {
+      if (document.querySelector('#message').value.length > 0)
+          document.querySelector('#send-button').disabled = false;
+      else
+          document.querySelector('#send-button').disabled = true;
+  };
+
 });
 
