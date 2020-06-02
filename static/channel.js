@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#leave-button").addEventListener("click", () => {
       socket.emit("leave")
+
+      // Remove from localStorage when you leave it
+      localStorage.removeItem("last_channel")
     });
 
   });
@@ -35,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const li = document.createElement('li');
       li.innerHTML = `${data.message}`;
       document.querySelector('#message_list').append(li);
+
+      // Save the current channel in local storage
+      // will trigger when entering a channel because of user's own entry announcement
+      localStorage.setItem("last_channel", data.channel)
   });
 
   // By default, submit button is disabled

@@ -24,4 +24,14 @@
     <br>
     <h3>Create a channel in the navbar above</h3>
   </div>
+
+
+  <script>
+    if (localStorage.getItem("last_channel")){
+      let channel = localStorage.getItem("last_channel");
+
+      // Simulate an HTTP redirect:
+      window.location.replace("/channel/"+channel);  
+    }
+  </script>
 {% endblock %}
