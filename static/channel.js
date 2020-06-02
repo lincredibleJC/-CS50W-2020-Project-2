@@ -31,16 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // When a new message is announced, add to message list
-  socket.on('announce join', data => {
+  socket.on('announce user', data => {
       const li = document.createElement('li');
-      li.innerHTML = `${data.username} has entered the room.`;
-      document.querySelector('#message_list').append(li);
-  });
-
-  // When a new message is announced, add to message list
-  socket.on('announce leave', data => {
-      const li = document.createElement('li');
-      li.innerHTML = `${data.username} has left the room.`;
+      li.innerHTML = `${data.message}`;
       document.querySelector('#message_list').append(li);
   });
 

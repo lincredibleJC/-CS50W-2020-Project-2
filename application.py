@@ -118,11 +118,11 @@ def on_join():
     join_room(room)
 
     username = session.get("username")
-    emit("announce join", {"username": username}, room=room)
+    emit("announce user", {'message': username + ' has entered.'}, room=room)
 
 @socketio.on('leave')
 def on_leave():
     room = session.get("channel_name")
     leave_room(room)
     username = session.get("username")
-    emit("announce leave", {"username": username}, room=room)
+    emit("announce user", {'message': username + '  has left.'}, room=room)
