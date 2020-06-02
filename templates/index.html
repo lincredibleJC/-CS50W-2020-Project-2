@@ -4,23 +4,6 @@
   Homepage
 {% endblock %}
 
-{% block sidebar %}
-  <!-- Sidebar -->
-  <div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Available Channels</div>
-    <div class="list-group list-group-flush">
-      {% if channels %}
-        {% for channel in channels %}
-          <a href="/channel/{{ channel }}" class="list-group-item list-group-item-action bg-light">{{ channel }}</a>
-        {% endfor %}
-      {% else %}
-        <a href="#" class="list-group-item list-group-item-action bg-light">There are currently no channels available</a>
-      {% endif %}
-    </div>
-  </div>
-  <!-- /#sidebar-wrapper -->
-{% endblock %}
-
 {% block navbar %}
   <button class="btn btn-success m-2" id="menu-toggle">View all channels</button>
   {% if session.get("channel_name") %}
@@ -34,9 +17,11 @@
 {% endblock %}
 
 {% block content %}
-  <h3>Choose a channel using the sidebar on the left.</h3>
-  <br>
-  <h3>or</h3>
-  <br>
-  <h3>Create a channel in the navbar above</h3>
+  <div class="text-center">
+    <h3>Choose a channel using the sidebar on the left.</h3>
+    <br>
+    <h3>or</h3>
+    <br>
+    <h3>Create a channel in the navbar above</h3>
+  </div>
 {% endblock %}

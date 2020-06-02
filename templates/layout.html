@@ -12,15 +12,23 @@
   <body>
     <div class="d-flex" id="wrapper">
       
-      {% block sidebar %}{% endblock %}
       <!-- Sidebar -->
-<!--       <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">Flack Project 2</div>
-        <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action bg-light">Channel List</a>
-          <a href="/login" class="list-group-item list-group-item-action bg-light">Channels</a>
-        </div>
-      </div> -->
+      <div class="bg-light border-right" id="sidebar-wrapper">
+          <div class="sidebar-heading">Available Channels</div>
+          <div class="list-group list-group-flush">
+            {% if session.get("username") %}
+              {% if channels %}
+                {% for channel in channels %}
+                  <a href="/channel/{{ channel }}" class="list-group-item list-group-item-action bg-light">{{ channel }}</a>
+                {% endfor %}
+              {% else %}
+                <a href="#" class="list-group-item list-group-item-action bg-light">There are currently no channels available</a>
+              {% endif %}
+            {% else %}
+              <a href="#" class="list-group-item list-group-item-action bg-light">Login to see the available channels</a>
+            {% endif %}
+          </div>
+      </div>
       <!-- /#sidebar-wrapper -->
 
       <!-- Page Content -->
@@ -49,7 +57,7 @@
         </nav>
 
         <!-- Main content -->
-        <div class="container mt-4 text-center">
+        <div class="container mt-4">
           {% block content %}{% endblock %}
           <div>
             {% with messages = get_flashed_messages() %}
