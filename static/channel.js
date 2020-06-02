@@ -8,10 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     socket.emit("join");
 
-    document.querySelector('#send-button').addEventListener("click", () => {
+    document.querySelector('#send-button').addEventListener("click", (e) => {
+      e.preventDefault();
       let message = document.getElementById("message").value;
       var date = new Date();
       var localeTimeString = date.toLocaleTimeString();
+      document.getElementById("message").value = '';
       socket.emit("send message", message,  localeTimeString);
     });
 
@@ -51,13 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
           document.querySelector('#send-button').disabled = false;
       else
           document.querySelector('#send-button').disabled = true;
-  };
-
-  // 'Enter' key  sends a message
-  document.querySelector('#message').onkeydown = (event) => {
-    if (event.key == "Enter") {
-      document.getElementById("send-button").click();
-    }
   };
 
 });
