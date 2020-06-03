@@ -105,8 +105,10 @@ def send_message(message, timestamp):
 	username = session.get("username")
 	channel_name = session.get('channel_name')
 
+	# append 1 and save the last 100 items only
 	channels[channel_name]["messages"].append({"username": username, "message": message, "timestamp": timestamp})
-
+	channels[channel_name]["messages"] = channels[channel_name]["messages"][-100:]
+	
 	emit("announce message", {"username": username,
 							 "message": message,
 							 "timestamp": timestamp},
