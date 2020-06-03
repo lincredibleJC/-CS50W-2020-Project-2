@@ -36,7 +36,7 @@
 
       // this gets the information from flask into javascript
       var channels = {{ channels|tojson }}
-      if channels.includes(channel){
+      if (channels.includes(channel)){
         // Simulate an HTTP redirect:
         window.location.replace("/channel/"+channel);    
       } else {
