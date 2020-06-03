@@ -28,7 +28,7 @@
 	<div>
     <ul id="message_list" class="message_list mb-4">
       {% for message in channel_data.messages %}
-      <div class="message">
+      <div class="{{ 'message-mine' if message.username == session.get('username') else 'message-others' }}">
       	<a class="message_profile-pic" href=""></a>
       	<a class="message_username" href="">{{ message.username.capitalize() }}</a>
       	<span class="message_timestamp">{{ message.timestamp }}</span>

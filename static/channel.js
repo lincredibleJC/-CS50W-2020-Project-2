@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // When a new message is announced, add to message list
   socket.on('announce message', data => {
       const div = document.createElement('div');
-      div.className += "message"
+      var my_username = localStorage.getItem("username");
+      div.className += (data.username == my_username)? "message-mine":"message-others";
       div.innerHTML = `<a class="message_profile-pic" href=""></a> \
                       <a class="message_username" href="">${data.username}</a> \
                       <span class="message_timestamp">${data.timestamp}</span> \
