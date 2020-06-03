@@ -19,7 +19,7 @@
             {% if session.get("username") %}
               {% if channels %}
                 {% for channel in channels %}
-                  <a href="/channel/{{ channel }}" class="list-group-item list-group-item-action bg-light">{{ channel.capitalize() }}</a>
+                  <a href="/channel/{{ channel }}" class="list-group-item list-group-item-action bg-light"><img src="/static/slack_Logo.png" alt="Logo" style="width:35px;">{{ channel.capitalize() }}</a>
                 {% endfor %}
               {% else %}
                 <a href="#" class="list-group-item list-group-item-action bg-light">There are currently no channels available</a>
