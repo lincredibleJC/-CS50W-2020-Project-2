@@ -26,12 +26,22 @@
   </div>
 
 
-  <script>
+  <script type="text/javascript">
+    function myFunc(vars) {
+        return vars
+    }
+
     if (localStorage.getItem("last_channel")){
       let channel = localStorage.getItem("last_channel");
 
-      // Simulate an HTTP redirect:
-      window.location.replace("/channel/"+channel);  
+      // this gets the information from flask into javascript
+      var channels = {{ channels|tojson }}
+      if channels.includes(channel){
+        // Simulate an HTTP redirect:
+        window.location.replace("/channel/"+channel);    
+      } else {
+        localStorage.removeItem("last_channel")
+      }   
     }
   </script>
 {% endblock %}
