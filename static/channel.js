@@ -28,16 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // When a new message is announced, add to message list
   socket.on('announce message', data => {
-      const li = document.createElement('li');
-      li.innerHTML = `${data.username},  ${data.message}, ${data.timestamp}`;
-      document.querySelector('#message_list').append(li);
+      const div = document.createElement('div');
+      div.className += "message"
+      div.innerHTML = `<a class="message_profile-pic" href=""></a> \
+                      <a class="message_username" href="">${data.username}</a> \
+                      <span class="message_timestamp">${data.timestamp}</span> \
+                      <span class="message_content">${data.message}</span>`
+      document.querySelector('#message_list').append(div);
   });
 
   // When a new message is announced, add to message list
   socket.on('announce user', data => {
-      const li = document.createElement('li');
-      li.innerHTML = `${data.message}`;
-      document.querySelector('#message_list').append(li);
+      const div = document.createElement('div');
+      div.className += "notification"
+      div.innerHTML = `<span class="notification_text">${data.message}</span>`
+      document.querySelector('#message_list').append(div);
 
       // Save the current channel in local storage
       // will trigger when entering a channel because of user's own entry announcement

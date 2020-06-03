@@ -59,6 +59,23 @@ body {
   background: aliceblue;
 }
 
+.notification {
+  position: relative;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+  width: max-content;
+  border: 2px solid lightgrey;
+  border-radius: 25px;
+  background: linen;
+}
+
+.notification_text {
+  color: #3e3d40;
+  font-style: italic;
+  display: block;
+  min-height: 1rem;
+}
+
 .message_profile-pic {
   display: block;
   border-radius: 0.2rem;
