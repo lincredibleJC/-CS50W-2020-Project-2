@@ -48,6 +48,23 @@ body {
   }
 }
 
+.channel-name {
+  display: inline-block;
+  padding: 0 0.5rem 0 1.5rem;
+  color: #555459;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 53px;
+  cursor: pointer;
+}
+
+.channel-prefix {
+  color: #9e9ea6;
+  padding-right: 0.1rem;
+  font-weight: 500;
+  font-size: 2rem;
+}
+
 /* Message Styles */
 .message {
   position: relative;
